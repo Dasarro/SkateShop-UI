@@ -27,6 +27,9 @@ export const AppRouter: React.FC = () => {
         <Route path={Routes.CATEGORY}>
           <CategoryView />
         </Route>
+        <Route path={Routes.PRODUCT}>
+          
+        </Route>
         <Route path={Routes.HOME}>
           <MainScreen />
         </Route>
