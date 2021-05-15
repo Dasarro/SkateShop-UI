@@ -10,6 +10,8 @@ import { LoginView } from "./../authentication/views/LoginView";
 import { RegisterView } from "./../authentication/views/RegisterView";
 import { Routes } from "./routes";
 import { RestrictedRoute } from "./RestrictedRoute";
+import { MainScreen } from "../main_screen/views/MainScreen";
+import { CategoryView } from './../categories/views/CategoryView';
 
 export const AppRouter: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -21,6 +23,12 @@ export const AppRouter: React.FC = () => {
         </Route>
         <Route path={Routes.REGISTER}>
           {!isAuthenticated ? <RegisterView /> : <Redirect to={Routes.HOME} />}
+        </Route>
+        <Route path={Routes.CATEGORY}>
+          <CategoryView />
+        </Route>
+        <Route path={Routes.HOME}>
+          <MainScreen />
         </Route>
       </Switch>
     </Router>
