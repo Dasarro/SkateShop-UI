@@ -12,3 +12,9 @@ export const getCategoryProducts = (categoryId: number): Promise<Product[]> => (
          .then(response => response.data)
          .catch(() => null)
 );
+
+export const getProduct = (productId: number): Promise<Product> => (
+    axios.get(`/api/Product/${productId}`)
+         .then(response => response.data)
+         .catch(() => null)
+);

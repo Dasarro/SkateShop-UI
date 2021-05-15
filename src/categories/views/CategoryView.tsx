@@ -11,7 +11,6 @@ import { useCategory } from './../../common/hooks/useCategories';
 
 export const CategoryView: React.FC = () => {
 
-    // const { categoryId } = useParams();
     const { categoryId } = useParams<{ categoryId: string }>();
     const { categoryProducts, fetchCategoryProducts } = useCategoryProducts(parseInt(categoryId));
     const { category, fetchCategory } = useCategory(parseInt(categoryId));

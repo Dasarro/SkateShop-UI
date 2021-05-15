@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Product } from "../api/types";
 import {
   getDiscountedProducts,
-  getCategoryProducts
+  getCategoryProducts,
+  getProduct
 } from '../api/productsAPI';
 
 export const useDiscountedProducts = () => {
@@ -37,4 +38,21 @@ export const useCategoryProducts = (categoryId: number) => {
   }
 
   return { categoryProducts, fetchCategoryProducts };
+}
+
+export const useProduct = (productId: number) => {
+  const [product, setProduct] = useState<Product>();
+
+  const fetchProduct = async (): Promise<boolean> => {
+    const product = await getProduct(productId);
+
+    if (product !== null) {
+      setProduct(product);
+      return true;
+    }
+
+    return false;
+  }
+
+  return { product, fetchProduct };
 }
