@@ -1,8 +1,6 @@
 import React from 'react';
 import { 
-    Flex,
-    Heading,
-    SimpleGrid
+    Flex
 } from "@chakra-ui/react";
 import { CategoryProductCard } from './CategoryProductCard';
 import { Product } from '../../common/api/types';

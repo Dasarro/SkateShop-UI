@@ -1,12 +1,12 @@
 import React from 'react';
-import { getImagePath } from '../../common/helpers/imagePath';
 import { 
     VStack,
     Image,
     Flex,
     Text } from "@chakra-ui/react";
-import logo from '../../bearings.jpg'
 import { Routes } from '../../routing/routes';
+import { getImage } from '../helpers/getImage';
+import { getFinalPrice } from '../helpers/priceOperations';
 
 interface Props {
     id: number;
@@ -15,13 +15,13 @@ interface Props {
     discount: number;
 }
 
-export const ProductCard: React.FC<Props> = ({ id, category, price, discount }) => {
-    const priceFinal = price - price * 0.01 * discount;
+export const MiniProductCard: React.FC<Props> = ({ id, category, price, discount }) => {
+    const priceFinal = getFinalPrice(price, discount);
     const productURL = Routes.PRODUCT.replace(':productId', id.toString());
     return (
-        <a href={productURL}>
-            <Flex flexDirection='column' p={3} bgColor='#574240' mx={5}>
-                <Image boxSize="100px" src={logo}/>
+        <Flex flexDirection='column' p={3} bgColor='#574240' mx={5}>
+            <a href={productURL}>
+                <Image boxSize="100px" src={getImage(category)}/>
                 {discount !== 0 ? (
                     <Flex flexDirection='row' justifyContent='space-between' px={2}>
                         <Flex flexDirection='column'>
@@ -41,7 +41,7 @@ export const ProductCard: React.FC<Props> = ({ id, category, price, discount }) 
                         {price}
                     </Flex>
                 )}
-            </Flex>
-        </a>
+            </a>
+        </Flex>
     );
 }

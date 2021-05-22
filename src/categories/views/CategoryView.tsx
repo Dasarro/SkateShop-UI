@@ -12,11 +12,11 @@ import { useCategory } from './../../common/hooks/useCategories';
 export const CategoryView: React.FC = () => {
 
     const { categoryId } = useParams<{ categoryId: string }>();
-    const { categoryProducts, fetchCategoryProducts } = useCategoryProducts(parseInt(categoryId));
+    const { categoryProducts, fetchCategoryProducts } = useCategoryProducts();
     const { category, fetchCategory } = useCategory(parseInt(categoryId));
 
     useEffect(() => {
-        fetchCategoryProducts();
+        fetchCategoryProducts(parseInt(categoryId));
         fetchCategory();
     }, []);
 

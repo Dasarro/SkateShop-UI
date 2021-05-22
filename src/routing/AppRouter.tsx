@@ -13,6 +13,7 @@ import { RestrictedRoute } from "./RestrictedRoute";
 import { MainScreen } from "../main_screen/views/MainScreen";
 import { CategoryView } from './../categories/views/CategoryView';
 import { ProductView } from "../products/views/ProductView";
+import { BasketView } from "../basket/views/BasketView";
 
 export const AppRouter: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -30,6 +31,9 @@ export const AppRouter: React.FC = () => {
         </Route>
         <Route path={Routes.PRODUCT}>
           <ProductView />
+        </Route>
+        <Route path={Routes.BASKET}>
+          <BasketView />
         </Route>
         <Route path={Routes.HOME}>
           <MainScreen />
