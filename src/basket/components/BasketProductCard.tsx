@@ -9,14 +9,12 @@ import {
 import { getImage } from '../../common/helpers/getImage';
 import { getFinalPrice, formatPrice } from '../../common/helpers/priceOperations';
 import { FaTrashAlt } from 'react-icons/fa';
+import { Product } from '../../common/api/types';
 
 interface Props {
-    id: number;
-    name: string;
-    price: number;
-    discount: number;
+    product: Product;
     quantity: number;
-    categoryName: string;
+    onQuantityChange: (value: number) => void;
 }
 
 interface StoredProduct {
@@ -24,28 +22,12 @@ interface StoredProduct {
     quantity: number;
 }
 
-export const BasketProductCard: React.FC<Props> = ({id, name, price, discount, quantity, categoryName}) => {
+export const BasketProductCard: React.FC<Props> = ({product: {id, name, price, discount, category: {name: categoryName}}, quantity, onQuantityChange}) => {
 
     const finalPrice = getFinalPrice(price, discount);
 
     const changeQuantity = (value: number): void => {
-        const basket = localStorage.getItem('basket');
-        let products: StoredProduct[];
-        basket !== null && basket !== '' ? products = JSON.parse(basket)
-                                         : products = [];
-        
-        const productPosition = products.findIndex(product => product.productId === id);
-        const product = products[productPosition];
-        if (product) {
-            const result = product.quantity + value;
-            if (result <= 0) {
-                products.splice(productPosition, 1);
-            } else {
-                product.quantity = result;
-            }
-            localStorage.setItem('basket', JSON.stringify(products));
-            window.dispatchEvent(new Event('storage'));
-        }
+        console.log('change quantity')
     }
 
     return (
@@ -64,10 +46,10 @@ export const BasketProductCard: React.FC<Props> = ({id, name, price, discount, q
             <Flex width='25%' ml={5} alignItems='center' justifyContent='space-between'>
                 <Text>{quantity}</Text>
                 <Flex flexDirection='column'>
-                    <Button bgColor='#574240' color='white' mb={3} onClick={() => changeQuantity(1)}>+</Button>
-                    <Button bgColor='#574240' color='white' onClick={() => changeQuantity(-1)}>-</Button>
+                    <Button bgColor='#574240' color='white' mb={3} onClick={() => onQuantityChange(1)}>+</Button>
+                    <Button bgColor='#574240' color='white' onClick={() => onQuantityChange(-1)}>-</Button>
                 </Flex>
-                <Button bgColor='#574240' color='white' mr={14} onClick={() => changeQuantity(-quantity)}><FaTrashAlt /></Button>
+                <Button bgColor='#574240' color='white' mr={14} onClick={() => onQuantityChange(-quantity)}><FaTrashAlt /></Button>
             </Flex>
             <Text width='15%' ml={5}>{formatPrice(quantity * finalPrice)}</Text>
         </Flex>

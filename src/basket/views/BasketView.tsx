@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { Navbar } from '../../common/components/Navbar';
 import { useProducts } from '../../common/hooks/useProducts';
-import { BasketProductHolder } from '../components/BasketProductHolder';
+import { BasketProductCard } from '../components/BasketProductCard';
 import { Product } from './../../common/api/types';
 import { BasketHeader } from '../components/BasketHeader';
 import { getFinalPrice, formatPrice } from './../../common/helpers/priceOperations';
@@ -42,31 +42,34 @@ export const BasketView: React.FC = () => {
         await postOrder(basketProducts.map(product => [product.productId, product.quantity]));
     }
 
-    const onStorage = () => {
-        const basket = localStorage.getItem('basket');
-        basket !== null && basket !== '' ? setBasketProducts(JSON.parse(basket))
-                                         : setBasketProducts([]);
-        console.log('siema eniu')
-    }
-
-    useEffect(() => {
-        window.addEventListener('storage', onStorage);
-        window.dispatchEvent(new Event('storage'));
-        return (() => {
-            window.removeEventListener('storage', onStorage);
-        })
-    }, []);
-
     useEffect(() => {
         fetchSpecifiedProducts(basketProducts.map(product => product.productId));
+        localStorage.setItem('basket', JSON.stringify(basketProducts));
     }, [basketProducts]);
 
     return (
         <Flex flexDirection='column' bgColor='#BFA5A4' minHeight='100vh'>
             <Navbar />
             <BasketHeader />
-            <BasketProductHolder products={products}
-                                 basketProducts={basketProducts} />
+            <Flex flexDirection='column'
+                  width='100%'
+                  bgColor='#BFA5A4'
+                  justifyContent='space-between'>
+                {products !== undefined && products.length > 0 && basketProducts.map(basketProduct => {
+                    const product = products.find(product => product.id === basketProduct.productId);
+
+                    const handleQuantityChange = (value: number) => {
+                        basketProduct.quantity += value;
+                        setBasketProducts(basketProducts.filter(basketProduct => basketProduct.quantity > 0));
+                    }
+
+                    return <BasketProductCard key={basketProduct.productId}
+                                              quantity={basketProduct.quantity}
+                                              product={product!}
+                                              onQuantityChange={handleQuantityChange}
+                            />
+                })}
+            </Flex>
             <Flex flexDirection='row-reverse'
                   mx='10%' 
                   color='#574240'
