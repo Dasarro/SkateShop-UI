@@ -4,16 +4,19 @@ import {
     Image,
     Flex,
     Text } from "@chakra-ui/react";
-import { useDiscountedProducts } from '../../common/hooks/useProducts';
+import { useProducts } from '../../common/hooks/useProducts';
 import { Navbar } from '../../common/components/Navbar';
 import { SalesSection } from '../components/SalesSection';
+import { BestsellersSection } from '../components/BestsellersSection';
 import { Header } from '../components/Header';
     
 export const MainScreen: React.FC = () => {
-    const { discountedProducts, fetchDiscountedProducts } = useDiscountedProducts();
+    const { products: discountedProducts, fetchDiscountedProducts } = useProducts();
+    const { products: bestsellingProducts, fetchBestsellingProducts } = useProducts();
     
     useEffect(() => {
         fetchDiscountedProducts();
+        fetchBestsellingProducts();
     }, []);
 
     return (
@@ -21,6 +24,7 @@ export const MainScreen: React.FC = () => {
             <Navbar />
             <Header />
             <SalesSection products={discountedProducts} />
+            <BestsellersSection products={bestsellingProducts} />
         </Flex>
     );
 }

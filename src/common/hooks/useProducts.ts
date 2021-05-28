@@ -2,29 +2,13 @@ import { useState } from "react";
 import { Product } from "../api/types";
 import {
   getDiscountedProducts,
+  getBestsellingProducts,
   getCategoryProducts,
   getRandomCategoryProducts,
   getSpecifiedProducts,
   getProduct,
   getProducts
 } from '../api/productsAPI';
-
-export const useDiscountedProducts = () => {
-  const [discountedProducts, setDiscountedProducts] = useState<Product[]>([]);
-
-  const fetchDiscountedProducts = async (): Promise<boolean> => {
-    const discountedProducts = await getDiscountedProducts();
-
-    if (discountedProducts !== null && discountedProducts.length > 0) {
-      setDiscountedProducts(discountedProducts);
-      return true;
-    }
-
-    return false;
-  }
-
-  return { discountedProducts, fetchDiscountedProducts };
-}
 
 export const useCategoryProducts = () => {
   const [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
@@ -79,7 +63,29 @@ export const useProducts = () => {
     return false;
   }
 
-  return { products, fetchProducts, fetchSpecifiedProducts };
+  const fetchDiscountedProducts = async (): Promise<boolean> => {
+    const products = await getDiscountedProducts();
+
+    if (products !== null && products.length > 0) {
+      setProducts(products);
+      return true;
+    }
+
+    return false;
+  }
+
+  const fetchBestsellingProducts = async (): Promise<boolean> => {
+    const products = await getBestsellingProducts();
+
+    if (products !== null && products.length > 0) {
+      setProducts(products);
+      return true;
+    }
+
+    return false;
+  }
+
+  return { products, fetchProducts, fetchSpecifiedProducts, fetchDiscountedProducts, fetchBestsellingProducts };
 }
 
 export const useProduct = (productId: number) => {

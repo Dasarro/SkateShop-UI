@@ -7,6 +7,12 @@ export const getDiscountedProducts = (): Promise<Product[]> => (
          .catch(() => null)
 );
 
+export const getBestsellingProducts = (): Promise<Product[]> => (
+    axios.get('/api/Product/bestsellers')
+         .then(response => response.data)
+         .catch(() => null)
+);
+
 export const getCategoryProducts = (categoryId: number): Promise<Product[]> => (
     axios.get(`/api/Product/category/${categoryId}`)
          .then(response => response.data)
@@ -35,4 +41,4 @@ export const getSpecifiedProducts = (productIds: Number[]): Promise<Product[]> =
     axios.get(`/api/Product/list?idsInString=${productIds}`)
          .then(response => response.data)
          .catch(() => null)
-)
+);
