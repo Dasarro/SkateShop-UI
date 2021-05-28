@@ -1,8 +1,6 @@
 import React from 'react';
 import { 
-    Flex,
-    Heading,
-    SimpleGrid
+    Flex
 } from "@chakra-ui/react";
 import { CategoryProductCard } from './CategoryProductCard';
 import { Product } from '../../common/api/types';
@@ -19,8 +17,9 @@ export const ProductHolder: React.FC<Props> = ({ products }) => {
               p={4}
               flexWrap='wrap'
               justifyContent='space-between'>
-            {products.map(({category, price, discount, name}) => (
-                <CategoryProductCard category={category.name}
+            {products.map(({id, category, price, discount, name}) => (
+                <CategoryProductCard id={id}
+                                     category={category.name}
                                      price={price} 
                                      discount={discount}
                                      name={name}/>

@@ -3,6 +3,7 @@ import { storeToken, getToken } from "../helpers/tokenStorage";
 import { login as loginHelper } from "../api/authAPI";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { JwtPayload } from "../../common/api/types";
 
 interface Context {
   isAuthenticated: boolean;
@@ -69,7 +70,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       value={{
         isAuthenticated: token != null,
         token,
-        username: token != null ? (jwt_decode(token) as any)["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] : null,
+        username: token != null ? (jwt_decode<JwtPayload>(token))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"] : null,
         login,
         logout,
       }}

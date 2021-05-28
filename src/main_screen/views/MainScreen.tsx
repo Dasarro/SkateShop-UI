@@ -11,6 +11,7 @@ import { Header } from '../components/Header';
     
 export const MainScreen: React.FC = () => {
     const { discountedProducts, fetchDiscountedProducts } = useDiscountedProducts();
+    
     useEffect(() => {
         fetchDiscountedProducts();
     }, []);
@@ -19,7 +20,7 @@ export const MainScreen: React.FC = () => {
         <Flex flexDirection='column'>
             <Navbar />
             <Header />
-            <SalesSection discountedProducts={discountedProducts} />
+            <SalesSection products={discountedProducts} />
         </Flex>
     );
 }
