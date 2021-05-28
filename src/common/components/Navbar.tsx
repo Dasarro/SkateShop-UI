@@ -8,10 +8,11 @@ import {
 import { useCategories } from '../hooks/useCategories';
 import { createBrowserHistory } from 'history';
 import { Routes } from '../../routing/routes';
-import { FaHome, FaShoppingBasket } from 'react-icons/fa';
+import { FaHome, FaShoppingBasket, FaDoorOpen, FaUserCircle } from 'react-icons/fa';
 import { useProducts } from '../hooks/useProducts';
-import { Product } from './../api/types';
 import { formatPrice } from '../helpers/priceOperations';
+import { getFinalPrice } from './../helpers/priceOperations';
+import { useAuth } from '../../authentication/context/AuthProvider';
 
 interface StoredProduct {
     productId: number;
@@ -20,34 +21,33 @@ interface StoredProduct {
 
 export const Navbar: React.FC = () => {
     const { categories, fetchCategories } = useCategories();
-    const { products, fetchProducts } = useProducts();
+    const { products, fetchSpecifiedProducts } = useProducts();
     const history = createBrowserHistory({ forceRefresh: true });
 
+    const { isAuthenticated, logout } = useAuth();
+
     const basket = localStorage.getItem('basket');
-    let basketProducts: StoredProduct[];
-    basket !== null && basket !== '' ? basketProducts = JSON.parse(basket)
-                                     : basketProducts = [];
-
-    let filteredProducts: Product[];
-
-    filteredProducts = products.filter(product => (
-        basketProducts.some(basketProduct => basketProduct.productId === product.id)
-    ));
+    const [basketProducts, setBasketProducts] = useState<StoredProduct[]>(basket !== null && basket !== '' ? JSON.parse(basket) : [])
 
     const calculateCost = (): number => {
         let cost = 0;
-        filteredProducts.forEach(({id, price, discount}) => {
+        products.forEach(({id, price, discount}) => {
             const basketProduct = basketProducts.find(x => x.productId === id);
             if (basketProduct) {
-                cost += basketProduct.quantity * (price - price * 0.01 * discount);
+                cost += basketProduct.quantity * getFinalPrice(price, discount);
             }
         });
         return cost;
     }
 
+    const onLogout = () => {
+        logout();
+        history.push(Routes.HOME);
+    }
+
     useEffect(() => {
         fetchCategories();
-        fetchProducts();
+        fetchSpecifiedProducts(basketProducts.map(product => product.productId));
     }, []);
 
     return (
@@ -80,6 +80,14 @@ export const Navbar: React.FC = () => {
                     <FaShoppingBasket />
                     <Text ml={3}>{formatPrice(calculateCost())}</Text>
                 </Button>
+                {isAuthenticated ?
+                    <Button bgColor='black' color='white' onClick={onLogout}>
+                        <FaDoorOpen />
+                    </Button> :
+                    <Button bgColor='black' color='white' onClick={() => history.push(Routes.LOGIN)}>
+                        <FaUserCircle />
+                    </Button>
+                }
             </Flex>
         </Flex>
         

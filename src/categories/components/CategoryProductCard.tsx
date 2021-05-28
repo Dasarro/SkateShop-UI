@@ -40,7 +40,7 @@ export const CategoryProductCard: React.FC<Props> = ({ id, category, price, disc
                         </Flex>
                     </Flex>
                 ) : (
-                    <Flex color='#BFA5A4' px={2} height='72px' alignItems='center'>
+                    <Flex color='#BFA5A4' px={2} height='72px' alignItems='center' justifyContent='center'>
                         {formatPrice(price)}
                     </Flex>
                 )}

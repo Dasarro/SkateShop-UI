@@ -3,7 +3,6 @@ import {
     Image,
     Flex,
     Text,
-    Heading,
     Button
 } from "@chakra-ui/react";
 import { getImage } from '../../common/helpers/getImage';
@@ -17,18 +16,9 @@ interface Props {
     onQuantityChange: (value: number) => void;
 }
 
-interface StoredProduct {
-    productId: number;
-    quantity: number;
-}
-
-export const BasketProductCard: React.FC<Props> = ({product: {id, name, price, discount, category: {name: categoryName}}, quantity, onQuantityChange}) => {
+export const BasketProductCard: React.FC<Props> = ({product: {name, price, discount, category: {name: categoryName}}, quantity, onQuantityChange}) => {
 
     const finalPrice = getFinalPrice(price, discount);
-
-    const changeQuantity = (value: number): void => {
-        console.log('change quantity')
-    }
 
     return (
         <Flex mx='10%' bgColor='#FFF' mb={5} p={2} alignItems='center' fontSize='26px' color='#574240' fontWeight='semibold'>

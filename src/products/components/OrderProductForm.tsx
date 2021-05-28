@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Flex,
-  Text,
   Button,
-  Input,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
@@ -12,9 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Routes } from '../../routing/routes';
-import { useHistory } from "react-router-dom";
 import { createBrowserHistory } from 'history';
-import { getFinalPrice } from '../../common/helpers/priceOperations';
 import { PriceHolder } from "./PriceHolder";
 
 interface Inputs {

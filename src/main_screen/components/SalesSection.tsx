@@ -6,14 +6,14 @@ import { Product } from '../../common/api/types';
 import { MiniProductCard } from '../../common/components/MiniProductCard';
 
 interface Props {
-    discountedProducts: Product[]
+    products: Product[]
 }
 
-export const SalesSection: React.FC<Props> = ({ discountedProducts }) => {
+export const SalesSection: React.FC<Props> = ({ products }) => {
     return (
         <Flex width='100%' bgColor='#DC143C' p={4}>
             <Heading display='flex' alignItems='center' color='white' fontSize='64px' mr={10}>SALES</Heading>
-            {discountedProducts.map(product => (
+            {products.map(product => (
                 <MiniProductCard id={product.id}
                                  category={product.category.name}
                                  price={product.price} 

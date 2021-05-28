@@ -20,7 +20,7 @@ export const MiniProductCard: React.FC<Props> = ({ id, category, price, discount
     const productURL = Routes.PRODUCT.replace(':productId', id.toString());
     return (
         <Flex flexDirection='column' p={3} bgColor='#574240' mx={5}>
-            <a href={productURL}>
+            <a href={productURL} style={{height: '100%'}}>
                 <Image boxSize="100px" src={getImage(category)}/>
                 {discount !== 0 ? (
                     <Flex flexDirection='row' justifyContent='space-between' px={2}>
@@ -37,8 +37,8 @@ export const MiniProductCard: React.FC<Props> = ({ id, category, price, discount
                         </Flex>
                     </Flex>
                 ) : (
-                    <Flex color='#BFA5A4'>
-                        {price}
+                    <Flex height='calc(100% - 100px)' color='#BFA5A4' alignItems='center' justifyContent='center'>
+                        <Flex>{price}</Flex>
                     </Flex>
                 )}
             </a>

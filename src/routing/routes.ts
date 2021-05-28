@@ -3,6 +3,7 @@ export enum Routes {
     REGISTER = "/register",
     CATEGORY = "/category/:categoryId",
     PRODUCT = "/product/:productId",
+    BASKET_REDIRECTION = "/basket/redirection",
     BASKET = "/basket",
     HOME = "/"
 }
