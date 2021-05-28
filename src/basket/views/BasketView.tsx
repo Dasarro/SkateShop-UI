@@ -14,9 +14,6 @@ import { createBrowserHistory } from 'history';
 import { Routes } from '../../routing/routes';
 import { useAuth } from '../../authentication/context/AuthProvider';
 import { getToken } from '../../authentication/helpers/tokenStorage';
-import jwt_decode from 'jwt-decode';
-import { JwtPayload } from './../../common/api/types';
-
 
 interface StoredProduct {
     productId: number;
@@ -43,20 +40,11 @@ export const BasketView: React.FC = () => {
     }
 
     const submitOrder = async () => {
-        const jwtToken = getToken();
-        let expired = true;
-        if (jwtToken) {
-            expired = jwt_decode<JwtPayload>(jwtToken).exp < Date.now() / 1000;
-        }
-
-        if (isAuthenticated && !expired) {
-            await postOrder(basketProducts.map(product => [product.productId, product.quantity]));
-            localStorage.setItem('basket', JSON.stringify([]));
-            history.push(Routes.BASKET_REDIRECTION);
-        } else {
-            logout();
-            history.push(Routes.LOGIN);
-        }
+        const order = await postOrder(basketProducts.map(product => [product.productId, product.quantity]));
+        if (!order) return;
+        
+        localStorage.setItem('basket', JSON.stringify([]));
+        history.push(Routes.BASKET_REDIRECTION);
     }
 
     useEffect(() => {
