@@ -21,7 +21,6 @@ export const MainScreen: React.FC = () => {
 
     return (
         <Flex flexDirection='column'>
-            <Navbar />
             <Header />
             <SalesSection products={discountedProducts} />
             <BestsellersSection products={bestsellingProducts} />

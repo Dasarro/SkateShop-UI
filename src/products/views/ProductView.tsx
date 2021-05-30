@@ -26,7 +26,6 @@ export const ProductView: React.FC = () => {
 
     return (
         <Flex flexDirection='column' bgColor='#BFA5A4'>
-            <Navbar />
             <Flex flexDirection='column' minHeight='calc(100vh - 50px)' pb={12}>
                 <Heading color='#574240' textAlign='center' pt={5} pb='60px' fontSize='80px'>
                     <Text>{product?.name}</Text>

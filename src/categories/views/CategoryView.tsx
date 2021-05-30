@@ -103,7 +103,6 @@ export const CategoryView: React.FC = () => {
 
     return (
         <Flex flexDirection='column' bgColor='#BFA5A4'>
-            <Navbar />
             <Heading color='#574240' textAlign='center' pt={5} pb='60px' fontSize='80px'>
                 {category?.name}
             </Heading>
