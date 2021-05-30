@@ -9,10 +9,10 @@ interface Props {
     products: Product[]
 }
 
-export const SalesSection: React.FC<Props> = ({ products }) => {
+export const BestsellersSection: React.FC<Props> = ({ products }) => {
     return (
-        <Flex width='100%' bgColor='#DC143C' p={4}>
-            <Heading display='flex' alignItems='center' color='white' fontSize='64px' width='200px' mr={10}>SALES</Heading>
+        <Flex width='100%' bgColor='#BFA5A4' p={4}>
+            <Heading display='flex' alignItems='center' color='white' fontSize='64px' mr={10} width='200px'>HOT</Heading>
             {products.map(product => (
                 <MiniProductCard id={product.id}
                                  category={product.category.name}

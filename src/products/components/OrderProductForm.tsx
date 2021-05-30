@@ -33,7 +33,6 @@ export const OrderProductForm: React.FC<Props> = ({productId, price, discount}) 
   const { register, handleSubmit } = useForm<Inputs>();
 
   const onSubmit = ({productQuantity}: Inputs) => {
-    console.log(productQuantity);
     const quantity = parseInt(productQuantity);
     let products: StoredProduct[];
     const basket = localStorage.getItem('basket');

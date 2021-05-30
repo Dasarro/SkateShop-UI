@@ -26,11 +26,13 @@ export const ProductView: React.FC = () => {
 
     return (
         <Flex flexDirection='column' bgColor='#BFA5A4'>
-            <Navbar />
             <Flex flexDirection='column' minHeight='calc(100vh - 50px)' pb={12}>
-                <Heading color='#574240' textAlign='center' pt={5} pb='60px' fontSize='80px'>
+                <Heading color='#574240' textAlign='center' mt={5} fontSize='80px' mb={3}>
                     <Text>{product?.name}</Text>
                 </Heading>
+                <Text color='#574240' textAlign='center' fontSize='24px' mb='60px' fontWeight='semibold'>
+                    {product?.producer.name}
+                </Text>
                 <Flex justifyContent='center'>
                     <Flex justifyContent='space-between'
                         p={5}

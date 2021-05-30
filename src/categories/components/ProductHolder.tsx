@@ -17,9 +17,10 @@ export const ProductHolder: React.FC<Props> = ({ products }) => {
               p={4}
               flexWrap='wrap'
               justifyContent='space-between'>
-            {products.map(({id, category, price, discount, name}) => (
+            {products.map(({id, category, producer, price, discount, name}) => (
                 <CategoryProductCard id={id}
                                      category={category.name}
+                                     producer={producer.name}
                                      price={price} 
                                      discount={discount}
                                      name={name}/>

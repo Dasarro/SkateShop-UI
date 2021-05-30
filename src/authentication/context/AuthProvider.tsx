@@ -4,6 +4,9 @@ import { login as loginHelper } from "../api/authAPI";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { JwtPayload } from "../../common/api/types";
+import { createBrowserHistory } from 'history';
+import { Routes } from "../../routing/routes";
+
 
 interface Context {
   isAuthenticated: boolean;
@@ -26,6 +29,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider: React.FC = ({ children }) => {
   const storedToken = getToken();
   const [token, setToken] = useState<string | null>(storedToken);
+  const history = createBrowserHistory({ forceRefresh: true });
 
   const setAxiosToken = (token: string | null) => {
     token === null ? (axios.defaults.headers["Authorization"] = null)
@@ -56,10 +60,12 @@ export const AuthProvider: React.FC = ({ children }) => {
   axios.interceptors.response.use(
     (value) => value,
     (error) => {
-      if (error.response && error.response.status) {
-        if (error.response.status === 403 || error.response.status === 401) {
-          logout();
-        }
+      if (error.response?.status === 401) {
+        logout();
+        history.push(Routes.LOGIN);
+      }
+      else if (error.response?.status === 404) {
+        history.push(Routes.HOME);
       }
       return Promise.reject(error);
     }

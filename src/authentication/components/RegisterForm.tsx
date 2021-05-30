@@ -59,6 +59,7 @@ export const RegisterForm: React.FC = () => {
                     type='text' 
                     placeholder='Enter username'
                     borderRadius={14}
+                    bgColor='white'
                     {...register('username', { 
                                                 required: 'This field is required!',
                                                 validate: username => !/[^a-zA-Z0-9]/.test(username)
@@ -75,6 +76,7 @@ export const RegisterForm: React.FC = () => {
                     type='email' 
                     placeholder='Enter email address'
                     borderRadius={14}
+                    bgColor='white'
                     {...register('email', { required: 'This field is required!' })} />
                 <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
             </FormControl>
@@ -84,6 +86,7 @@ export const RegisterForm: React.FC = () => {
                     type='text' 
                     placeholder='Enter your name'
                     borderRadius={14}
+                    bgColor='white'
                     {...register('name', { required: 'This field is required!' })} />
                 <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
             </FormControl>
@@ -93,6 +96,7 @@ export const RegisterForm: React.FC = () => {
                     type='text' 
                     placeholder='Enter your surname'
                     borderRadius={14}
+                    bgColor='white'
                     {...register('surname', { required: 'This field is required!' })} />
                 <FormErrorMessage>{errors.surname?.message}</FormErrorMessage>
             </FormControl>
@@ -102,6 +106,7 @@ export const RegisterForm: React.FC = () => {
                     type='text' 
                     placeholder='Enter address'
                     borderRadius={14}
+                    bgColor='white'
                     {...register('address', { required: 'This field is required!' })} />
                 <FormErrorMessage>{errors.address?.message}</FormErrorMessage>
             </FormControl>
@@ -111,6 +116,7 @@ export const RegisterForm: React.FC = () => {
                     type='text' 
                     placeholder='Enter postal code'
                     borderRadius={14}
+                    bgColor='white'
                     {...register('postalCode', { required: 'This field is required!',
                                                  validate: postalCode => (/^\d{2}-\d{3}$/.test(postalCode) ||
                                                                           'Invalid format of the postal code!')
@@ -123,6 +129,7 @@ export const RegisterForm: React.FC = () => {
                     type='password' 
                     placeholder='Enter password'
                     borderRadius={14}
+                    bgColor='white'
                     {...register('password', {  
                                                 required: 'This field is required!',
                                                 minLength: {
@@ -150,6 +157,7 @@ export const RegisterForm: React.FC = () => {
                     type='password' 
                     placeholder='Enter password again'
                     borderRadius={14}
+                    bgColor='white'
                     {...register('confirmPassword', { required: 'This field is required!' })}/>
                 <FormErrorMessage>{errors.confirmPassword?.message}</FormErrorMessage>
             </FormControl>
@@ -166,6 +174,8 @@ export const RegisterForm: React.FC = () => {
                   width='45%'
                   border='1px'
                   borderRadius={14}
+                  bgColor='#574240'
+                  color='white'
                   onClick={() => history.push(Routes.LOGIN)}
                   _hover={{ transform: 'scale(1.02)'}}
                   _active={{ transform: 'scale(1.02)'}}>Log In</Button>
@@ -174,6 +184,8 @@ export const RegisterForm: React.FC = () => {
                     width='45%'
                     borderRadius={14}
                     isLoading={isSubmitting}
+                    bgColor='#574240'
+                    color='white'
                     _hover={{ transform: 'scale(1.02)'}}
                     _active={{ transform: 'scale(1.02)'}}>Sign Up</Button>
             </Flex>

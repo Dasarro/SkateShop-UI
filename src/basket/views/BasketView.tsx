@@ -12,61 +12,24 @@ import { postOrder } from '../../common/api/ordersAPI';
 import { useState } from 'react';
 import { createBrowserHistory } from 'history';
 import { Routes } from '../../routing/routes';
-import { useAuth } from '../../authentication/context/AuthProvider';
-import { getToken } from '../../authentication/helpers/tokenStorage';
-import jwt_decode from 'jwt-decode';
-import { JwtPayload } from './../../common/api/types';
-
-
-interface StoredProduct {
-    productId: number;
-    quantity: number;
-}
+import { StoredProduct } from './../../common/api/types';
+import { useBasket } from './../context/BasketProvider';
 
 export const BasketView: React.FC = () => {
 
-    const { products, fetchSpecifiedProducts } = useProducts();
-    const { isAuthenticated, logout } = useAuth();
     const history = createBrowserHistory({ forceRefresh: true });
-    const basket = localStorage.getItem('basket');
-    const [basketProducts, setBasketProducts] = useState<StoredProduct[]>(basket !== null && basket !== '' ? JSON.parse(basket) : []);
-
-    const calculateCost = (): number => {
-        let cost = 0;
-        products.forEach(({id, price, discount}) => {
-            const basketProduct = basketProducts.find(x => x.productId === id);
-            if (basketProduct) {
-                cost += basketProduct.quantity * getFinalPrice(price, discount);
-            }
-        });
-        return cost;
-    }
+    const { products, basketProducts, calculateCost, setBasketProducts } = useBasket();
 
     const submitOrder = async () => {
-        const jwtToken = getToken();
-        let expired = true;
-        if (jwtToken) {
-            expired = jwt_decode<JwtPayload>(jwtToken).exp < Date.now() / 1000;
-        }
-
-        if (isAuthenticated && !expired) {
-            await postOrder(basketProducts.map(product => [product.productId, product.quantity]));
-            localStorage.setItem('basket', JSON.stringify([]));
-            history.push(Routes.BASKET_REDIRECTION);
-        } else {
-            logout();
-            history.push(Routes.LOGIN);
-        }
+        const order = await postOrder(basketProducts.map(product => [product.productId, product.quantity]));
+        if (!order) return;
+        
+        localStorage.setItem('basket', JSON.stringify([]));
+        history.push(Routes.BASKET_REDIRECTION);
     }
-
-    useEffect(() => {
-        fetchSpecifiedProducts(basketProducts.map(product => product.productId));
-        localStorage.setItem('basket', JSON.stringify(basketProducts));
-    }, [basketProducts]);
 
     return (
         <Flex flexDirection='column' bgColor='#BFA5A4' minHeight='100vh'>
-            <Navbar />
             <BasketHeader />
             <Flex flexDirection='column'
                   width='100%'

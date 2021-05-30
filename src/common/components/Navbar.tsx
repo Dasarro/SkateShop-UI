@@ -13,32 +13,15 @@ import { useProducts } from '../hooks/useProducts';
 import { formatPrice } from '../helpers/priceOperations';
 import { getFinalPrice } from './../helpers/priceOperations';
 import { useAuth } from '../../authentication/context/AuthProvider';
-
-interface StoredProduct {
-    productId: number;
-    quantity: number;
-}
+import { StoredProduct } from './../api/types';
+import { useBasket } from './../../basket/context/BasketProvider';
 
 export const Navbar: React.FC = () => {
     const { categories, fetchCategories } = useCategories();
-    const { products, fetchSpecifiedProducts } = useProducts();
+    const { calculateCost } = useBasket();
     const history = createBrowserHistory({ forceRefresh: true });
 
     const { isAuthenticated, logout } = useAuth();
-
-    const basket = localStorage.getItem('basket');
-    const [basketProducts, setBasketProducts] = useState<StoredProduct[]>(basket !== null && basket !== '' ? JSON.parse(basket) : [])
-
-    const calculateCost = (): number => {
-        let cost = 0;
-        products.forEach(({id, price, discount}) => {
-            const basketProduct = basketProducts.find(x => x.productId === id);
-            if (basketProduct) {
-                cost += basketProduct.quantity * getFinalPrice(price, discount);
-            }
-        });
-        return cost;
-    }
 
     const onLogout = () => {
         logout();
@@ -47,7 +30,6 @@ export const Navbar: React.FC = () => {
 
     useEffect(() => {
         fetchCategories();
-        fetchSpecifiedProducts(basketProducts.map(product => product.productId));
     }, []);
 
     return (
@@ -60,12 +42,17 @@ export const Navbar: React.FC = () => {
                     width='fit-content'
                     variant='filled'
                     icon={<></>}
-                    placeholder='Skateboard parts'
                     color='white'
                     bg='black'
                     onChange={({target: { value }}) => (
                         history.push(`/category/${value}`)
                     )}>
+                    <option selected
+                            disabled
+                            hidden
+                            style={{backgroundColor: 'black'}}>
+                        Skateboard parts
+                    </option>
                     {categories.map(({categoryId, name}) => (
                         <option value={categoryId}
                                 style={{backgroundColor: 'black'}}>
