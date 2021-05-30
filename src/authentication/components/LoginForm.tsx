@@ -40,6 +40,7 @@ export const LoginForm: React.FC = () => {
           type="text"
           placeholder="Enter email address or username"
           borderRadius={14}
+          bgColor='white'
           {...register('login', { required: 'This field is required! '})}
         />
         <FormErrorMessage>{errors.login?.message}</FormErrorMessage>
@@ -50,6 +51,7 @@ export const LoginForm: React.FC = () => {
           type="password"
           placeholder="Enter password"
           borderRadius={14}
+          bgColor='white'
           {...register('password', { required: 'This field is required! '})}
         />
         <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
@@ -63,6 +65,8 @@ export const LoginForm: React.FC = () => {
           width="45%"
           borderRadius={14}
           isLoading={isSubmitting}
+          bgColor='#574240'
+          color='white'
           _hover={{ transform: "scale(1.02)" }}
           _active={{ transform: "scale(1.02)" }}
         >
@@ -70,8 +74,9 @@ export const LoginForm: React.FC = () => {
         </Button>
         <Button
           width="45%"
-          border="1px"
           borderRadius={14}
+          bgColor='#574240'
+          color='white'
           _hover={{ transform: "scale(1.02)" }}
           _active={{ transform: "scale(1.02)" }}
           onClick={() => history.push(Routes.REGISTER)}
