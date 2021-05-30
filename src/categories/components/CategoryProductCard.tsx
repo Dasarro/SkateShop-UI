@@ -12,19 +12,21 @@ import { formatPrice } from '../../common/helpers/priceOperations';
 interface Props {
     id: number;
     category: string;
+    producer: string;
     price: number;
     discount: number;
     name: string;
 }
 
-export const CategoryProductCard: React.FC<Props> = ({ id, category, price, discount, name }) => {
+export const CategoryProductCard: React.FC<Props> = ({ id, category, producer, price, discount, name }) => {
     const priceFinal = price - price * 0.01 * discount;
     const productURL = Routes.PRODUCT.replace(':productId', id.toString());
     return (
         <Flex flexDirection='column' p={3} bgColor='#574240' mx={5} mb={7} height='fit-content' fontSize='24px'>
             <a href={productURL}>
                 <Image boxSize="256px" src={getImage(category)}/>
-                <Heading textAlign='center' color='#BFA5A4'>{name}</Heading>
+                <Heading textAlign='center' color='#BFA5A4' mb={1}>{name}</Heading>
+                <Text fontWeight='semibold' fontSize='14px' color='#BFA5A4' textAlign='center' mb={3}>{producer}</Text>
                 {discount !== 0 ? (
                     <Flex flexDirection='row' justifyContent='space-between' px={2} height='72px'>
                         <Flex flexDirection='column'>
