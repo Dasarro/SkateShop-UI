@@ -60,12 +60,17 @@ export const Navbar: React.FC = () => {
                     width='fit-content'
                     variant='filled'
                     icon={<></>}
-                    placeholder='Skateboard parts'
                     color='white'
                     bg='black'
                     onChange={({target: { value }}) => (
                         history.push(`/category/${value}`)
                     )}>
+                    <option selected
+                            disabled
+                            hidden
+                            style={{backgroundColor: 'black'}}>
+                        Skateboard parts
+                    </option>
                     {categories.map(({categoryId, name}) => (
                         <option value={categoryId}
                                 style={{backgroundColor: 'black'}}>
