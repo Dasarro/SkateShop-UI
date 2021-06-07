@@ -15,6 +15,7 @@ export const BestsellersSection: React.FC<Props> = ({ products }) => {
             <Heading display='flex' alignItems='center' color='white' fontSize='64px' mr={10} width='200px'>HOT</Heading>
             {products.map(product => (
                 <MiniProductCard id={product.id}
+                                 key={product.id}
                                  category={product.category.name}
                                  price={product.price} 
                                  discount={product.discount} />

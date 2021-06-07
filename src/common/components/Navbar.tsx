@@ -9,6 +9,7 @@ import { useCategories } from '../hooks/useCategories';
 import { createBrowserHistory } from 'history';
 import { Routes } from '../../routing/routes';
 import { FaHome, FaShoppingBasket, FaDoorOpen, FaUserCircle } from 'react-icons/fa';
+import { IoIosStats } from 'react-icons/io';
 import { useProducts } from '../hooks/useProducts';
 import { formatPrice } from '../helpers/priceOperations';
 import { getFinalPrice } from './../helpers/priceOperations';
@@ -54,12 +55,16 @@ export const Navbar: React.FC = () => {
                         Skateboard parts
                     </option>
                     {categories.map(({categoryId, name}) => (
-                        <option value={categoryId}
+                        <option key={categoryId}
+                                value={categoryId}
                                 style={{backgroundColor: 'black'}}>
                             {name}
                         </option>
                     ))}
                 </Select>
+                <Button bgColor='black' onClick={() => history.push(Routes.STATISTICS)}>
+                    <IoIosStats color='white' />
+                </Button>
             </Flex>
 
             <Flex alignItems='center'>

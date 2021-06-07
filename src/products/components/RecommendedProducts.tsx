@@ -13,9 +13,10 @@ export const RecommendedProducts: React.FC<Props> = ({products}) => {
             <Heading display='flex' alignItems='center' color='white' fontSize='64px' mr={10}>SEE ALSO</Heading>
             {products.map(product => (
                 <MiniProductCard id={product.id}
-                                category={product.category.name}
-                                price={product.price} 
-                                discount={product.discount} />
+                                 key={product.id}
+                                 category={product.category.name}
+                                 price={product.price} 
+                                 discount={product.discount} />
             ))}
         </Flex>
     );
