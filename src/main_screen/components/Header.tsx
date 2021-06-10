@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Heading } from "@chakra-ui/react";
-import image from '../../images/header.png'
+import image from '../../images/header.webp'
 
 
 export const Header: React.FC = () => {
