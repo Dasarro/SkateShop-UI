@@ -5,6 +5,7 @@ export enum Routes {
     PRODUCT = "/product/:productId",
     BASKET_REDIRECTION = "/basket/redirection",
     BASKET = "/basket",
+    STATISTICS = "/statistics",
     HOME = "/"
 }
   

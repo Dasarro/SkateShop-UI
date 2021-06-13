@@ -15,6 +15,7 @@ import { CategoryView } from './../categories/views/CategoryView';
 import { ProductView } from "../products/views/ProductView";
 import { BasketView } from "../basket/views/BasketView";
 import { OrderRedirectionView } from "../basket/views/OrderRedirectionView";
+import { StatisticsView } from "../statistics/views/StatisticsView";
 
 export const AppRouter: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -39,7 +40,13 @@ export const AppRouter: React.FC = () => {
         <Route path={Routes.BASKET}>
           <BasketView />
         </Route>
-        <Route path={Routes.HOME}>
+        <Route path={Routes.STATISTICS}>
+          <StatisticsView />
+        </Route>
+        <Route path={Routes.HOME} exact>
+          <MainScreen />
+        </Route>
+        <Route path='*'>
           <MainScreen />
         </Route>
       </Switch>

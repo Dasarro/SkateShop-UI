@@ -19,6 +19,7 @@ export const ProductHolder: React.FC<Props> = ({ products }) => {
               justifyContent='space-between'>
             {products.map(({id, category, producer, price, discount, name}) => (
                 <CategoryProductCard id={id}
+                                     key={id}
                                      category={category.name}
                                      producer={producer.name}
                                      price={price} 
